@@ -1,0 +1,139 @@
+ ArrayLists are GOOD WITH STORING AND SEARCHING elements/data, but
+       not quite good with deleting and inserting new elements... it's
+       because:
+
+       suppose i want to insert a new element at the index 4, which means i have
+       to shift/move all elements one by one
+
+       the array list:
+
+       0 1 2 3 4 5 6 7 8 9
+       a b c d e f g h i
+
+       let's shift or move all the elements to make index 4 vacant:
+       0 1 2 3 4 5 6 7 8 9
+       a b c d e f g h   i   <- 1st shift
+
+       0 1 2 3 4 5 6 7 8 9
+       a b c d e f g   h i   <- 2nd shift
+
+       0 1 2 3 4 5 6 7 8 9
+       a b c d e f   g h i   <- 3rd shift
+
+       0 1 2 3 4 5 6 7 8 9
+       a b c d e   f g h i   <- 4th shift
+
+       0 1 2 3 4 5 6 7 8 9
+       a b c d   e f g h i   <- 5th shift
+
+       now the index 4 is vacant, let's insert the new element
+       0 1 2 3 4 5 6 7 8 9
+       a b c d ? e f g h i
+
+       the same action is applied when removing an element, you will shift the elements
+       BACKWARDS the empty space.. it will take lots of TIME, because imagine having MILLIONS of elements in the
+       arraylist, it will all shift one by one, MILLIONS of them
+
+
+ LinkedLists (singly) are good with INSERTING and REMOVING data, but not quite good with searching data. You can easily
+       insert a new data between the links...
+
+       Linked lists are made up of long chain of nodes linked up together, it has no indexes.. The nodes are
+       non-contiguous, they can be anywhere on you computer's memory. It has pointers and arrows to guide the path
+       of the nodes, it was like a scavenger hunt with addresses as clues.
+
+       When reached the end of the linked list, the address would be "null" which means there will be no address next
+       to that node. That means we are at the tail of the linked list.
+
+
+        ----------         ----------         ----------         -----------
+       |  A | 101 | ----> |  B | 404 | ----> |  C | 666 | ----> |  D | null |
+        ----------         ----------         ----------         -----------
+          ^     ^
+        data  address
+
+
+        When adding or inserting a new data/node, we dont have to shift nodes like in Arraylist.
+
+        * let's try inserting new data ? between B and C:
+
+         ----------         ----------         ----------         -----------
+        |  A | 101 | ----> |  B | 404 | ----> |  C | 666 | ----> |  D | null |
+         ----------         ----------         ----------         -----------
+
+                                              ----------
+                                             |  ? | ??? |  this is the new data we're gonna insert between B and C
+                                              ----------
+
+
+        * take the address of the previous node "B", and place it in the new node instead so that its pointer will be
+        pointing on the next node "C":
+
+        B is no longer pointing to C since it has no address/null for now after the new node stole its address
+         ----------         ----------         ----------         -----------
+        |  A | 101 | ----> |  B |     |       |  C | 666 | ----> |  D | null |
+         ----------         ----------         ----------         -----------
+                                                  ^
+                                              ----------
+                                             |  ? | 404 |  now the new node is pointing at the "C" after we stole the address of "B"
+                                              ----------
+
+
+        * assign new address to B and place the pointers to the new node:
+
+                                                new node
+         ----------         ----------         ----------         ----------         -----------
+        |  A | 101 | ----> |  B | 777 | ----> |  ? | 404 | ----> |  C | 666 | ----> |  D | null |
+         ----------         ----------         ----------         ----------         -----------
+                        new address for B
+
+         *********************************************************************************
+
+         ALSO, here's how we will delete/remove a node. Again, there's no need to shift the data like in Arraylist.
+
+
+         ----------         ----------         ----------         ----------         -----------
+        |  A | 101 | ----> |  B | 777 | ----> |  ? | 404 | ----> |  C | 666 | ----> |  D | null |
+         ----------         ----------         ----------         ----------         -----------
+
+         * Let's say we wanna remove the node B:
+
+         ----------                            ----------         ----------         -----------
+        |  A | 101 |                          |  ? | 404 | ----> |  C | 666 | ----> |  D | null |
+         ----------                            ----------         ----------         -----------
+
+         * Get the address of node B. Replace it as the new address of the previous node A:
+
+         ----------                            ----------         ----------         -----------
+        |  A | 777 |                          |  ? | 404 | ----> |  C | 666 | ----> |  D | null |
+         ----------                            ----------         ----------         -----------
+        the node A is now addressed 777
+        which used to be B's address
+
+
+         * Now, node A is pointing at node ? after we replaced it with B's address. 777 is a familiar address to node ?
+
+         ----------         ----------         ----------         -----------
+        |  A | 777 | ----> |  ? | 404 | ----> |  C | 666 | ----> |  D | null |
+         ----------         ----------         ----------         -----------
+
+         ************
+         The downside is: LinkedList is bad at searching. We can easily navigate a data, thanks to indexes, which ArrayLists
+         had. LinkedList does NOT have an indexes. To find a specific data in a LinkedList, we need to got from start/head
+         towards the end/tail node to node until we find the data or element we are looking for. It will TAKE TIME.
+
+
+
+ Doubly LinkedList is a type of LinkedList where the pointers or path can go bothways back to back and has 2 addresses, its requires even
+         more memory to store 2 addresses in each node.
+
+
+         ----------------          ---------------          ---------------          ----------------
+        | null | A | 777 | <----> | 123 | ? | 404 | <----> | 101 | C | 666 | <----> | 808 | D | null |
+         ----------------          ---------------          ---------------          ----------------
+
+         The benefit of the Doubly is can we traverse the LinkedList from head to tail OR tail to head (vice versa).
+         The downside is it requires lots of memory compared to a Singly.
+
+
+
